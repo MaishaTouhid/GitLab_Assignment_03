@@ -3,7 +3,12 @@ import java.util.*;
 
 public class EmployeeManager {
     public static void main(String[] args) {
-        // Check arguments
+        if (args.length != 1) {
+            System.out.println("Please give exactly one argument to run the program.");
+            System.out.println("Example: java EmployeeManager l");
+            return;
+        }
+         // Check arguments
         if (args[0].equals("l")) {
             System.out.println("Loading data ...");
             try {
