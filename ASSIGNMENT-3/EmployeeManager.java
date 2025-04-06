@@ -6,7 +6,7 @@ public class EmployeeManager {
     public static String readFile() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(
-                        new FileInputStream("employees.txt")));
+                        new FileInputStream(Constants.EMPLOYEE_FILE)));
         String line = bufferedReader.readLine();
         bufferedReader.close();
         return line;
@@ -14,7 +14,7 @@ public class EmployeeManager {
 
     public static void writeFile(String content, boolean append) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(
-                new FileWriter("employees.txt", append));
+                new FileWriter(Constants.EMPLOYEE_FILE, append));
         bufferedWriter.write(content);
         bufferedWriter.close();
     }
@@ -36,7 +36,7 @@ public class EmployeeManager {
                     System.out.println(employee);
                 }
             } catch (Exception ex) {
-            System.out.println("Data Loaded.");
+                System.out.println("Data Loaded.");
             }
 
         } else if (argument.equals("s")) {
@@ -57,7 +57,7 @@ public class EmployeeManager {
                 String newEmployee = argument.substring(1);
                 writeFile(", " + newEmployee, true);
             } catch (Exception ex) {
-            System.out.println("Data Loaded.");
+                System.out.println("Data Loaded.");
             }
 
         } else if (argument.startsWith("?")) {
@@ -74,7 +74,7 @@ public class EmployeeManager {
                     }
                 }
             } catch (Exception ex) {
-            System.out.println("Data Loaded.");
+                System.out.println("Data Loaded.");
             }
 
         } else if (argument.contains("c")) {
@@ -111,7 +111,7 @@ public class EmployeeManager {
                 }
                 writeFile(String.join(",", employees), false);
             } catch (Exception ex) {
-            System.out.println("Data Updated.");
+                System.out.println("Data Updated.");
             }
 
         } else if (argument.startsWith("d")) {
@@ -124,7 +124,7 @@ public class EmployeeManager {
                 employeeList.remove(employeeToDelete);
                 writeFile(String.join(",", employeeList), false);
             } catch (Exception ex) {
-            System.out.println("Data Deleted.");
+                System.out.println("Data Deleted.");
             }
         }
     }
