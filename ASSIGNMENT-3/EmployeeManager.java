@@ -19,10 +19,15 @@ public class EmployeeManager {
         bufferedWriter.close();
     }
 
+    public static void printUsage() {
+            System.out.println("Please give exactly one argument to run the program.");
+            System.out.println("Example: java EmployeeManager l");
+            }
+
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Please give exactly one argument to run the program.");
-            System.out.println("Example: java EmployeeManager l");
+            printUsage();
             return;
         }
 
@@ -50,7 +55,7 @@ public class EmployeeManager {
                 boolean exists = Arrays.asList(employees).contains(searchName);
 
                 if (exists) {
-                    System.out.println("Employee found!");
+                    System.out.println("Employee found.");
                 } else {
                     System.out.println("Employee not found.");
                 }
@@ -65,13 +70,19 @@ public class EmployeeManager {
             } else if (command.startsWith("u")) {
                 String[] employees = readFile().split(",");
                 String nameToUpdate = command.substring(1);
+                boolean updated = false;
                 for (int i = 0; i < employees.length; i++) {
                     if (employees[i].equals(nameToUpdate)) {
                         employees[i] = "Updated";
+                        updated = true;
                     }
                 }
-                writeFile(String.join(",", employees), false);
-                System.out.println("Employee updated.");
+                if (updated) {
+                    writeFile(String.join(",", employees), false);
+                    System.out.println("Employee updated.");
+                } else {
+                    System.out.println("Employee not found to update.");
+                }
 
             } else if (command.startsWith("d")) {
                 List<String> employeeList = new ArrayList<>(Arrays.asList(readFile().split(",")));
@@ -84,7 +95,8 @@ public class EmployeeManager {
                 }
 
             } else {
-                System.out.println("Unknown command. Please check usage.");
+                System.out.println("Unknown command: " + command);
+                printUsage();
             }
 
         } catch (Exception e) {
