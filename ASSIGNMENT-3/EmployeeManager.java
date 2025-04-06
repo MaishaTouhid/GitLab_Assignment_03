@@ -3,7 +3,6 @@ import java.util.*;
 
 public class EmployeeManager {
 
-    // Utility to read the employee file
     public static String readFile() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(
@@ -13,7 +12,6 @@ public class EmployeeManager {
         return line;
     }
 
-    // Utility to write to the employee file
     public static void writeFile(String content, boolean append) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(
                 new FileWriter(Constants.EMPLOYEE_FILE, append));
@@ -49,8 +47,6 @@ public class EmployeeManager {
             } else if (command.startsWith("?")) {
                 String[] employees = readFile().split(",");
                 String searchName = command.substring(1);
-
-                // Direct search using stream (or basic loop)
                 boolean exists = Arrays.asList(employees).contains(searchName);
 
                 if (exists) {
@@ -60,20 +56,11 @@ public class EmployeeManager {
                 }
 
             } else if (command.equals("c")) {
-                char[] chars = readFile().toCharArray();
-                int wordCount = 0;
-                boolean inWord = false;
-                for (char c : chars) {
-                    if (c == ' ') {
-                        if (!inWord) {
-                            wordCount++;
-                            inWord = true;
-                        }
-                    } else {
-                        inWord = false;
-                    }
-                }
-                System.out.println(wordCount + " word(s) found. Total characters: " + chars.length);
+                String line = readFile();
+                String[] words = line.trim().split("\\s+");
+                int wordCount = words.length;
+                int charCount = line.length();
+                System.out.println(wordCount + " word(s) found. Total characters: " + charCount);
 
             } else if (command.startsWith("u")) {
                 String[] employees = readFile().split(",");
